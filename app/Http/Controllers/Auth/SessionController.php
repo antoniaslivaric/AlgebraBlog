@@ -39,6 +39,7 @@ class SessionController extends Controller
      */
     public function postLogin(Request $request)
     {
+		//dd($request);
         // Validate the Form Data
         $result = $this->validate($request, [
             'email' => 'required',
@@ -66,6 +67,7 @@ class SessionController extends Controller
      */
     public function getLogout(Request $request)
     {
+		
         // Terminate the user's current session.  Passing true as the
         // second parameter kills all of the user's active sessions.
         $result = $this->authManager->logout(null, null);

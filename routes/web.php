@@ -14,6 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+/* Radi se kroz controler
+Route::get('/save-post', function () {
+   $data = array(
+			'title' => 'Pero',
+			'content' => 'asjklhg',
+			'user_id' => 1
+   );
+   $post = new App\Models\Post();
+   $obj = post->savePost($data);
+   dd($obj);
+});*/
 
 // Authorization
 Route::get('login', 'Auth\SessionController@getLogin')->name('auth.login.form');
