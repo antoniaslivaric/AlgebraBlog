@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-/* Radi se kroz controler
+/* Radi se kroz controler  
 Route::get('/save-post', function () {
    $data = array(
 			'title' => 'Pero',
@@ -24,7 +24,7 @@ Route::get('/save-post', function () {
    $post = new App\Models\Post();
    $obj = post->savePost($data);
    dd($obj);
-});*/
+}); */
 
 // Authorization
 Route::get('login', 'Auth\SessionController@getLogin')->name('auth.login.form');
@@ -51,6 +51,9 @@ Route::resource('users', 'UserController');
 
 // Roles
 Route::resource('roles', 'RoleController');
+
+// Posts
+Route::resource('posts', 'PostController');
 
 // Dashboard
 Route::get('dashboard', function () {
