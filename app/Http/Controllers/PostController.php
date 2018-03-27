@@ -9,6 +9,12 @@ use Exception;
 
 class PostController extends Controller
 {
+	
+	public function __construct()
+	{
+		$this->middleware('sentinel.auth');
+	}
+	
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +24,14 @@ class PostController extends Controller
     {
         $posts = Post::orderBy('created_at', 'DESC')->paginate(10);
 		//$posts = Post::all();
+		
+		$user_id = Sentinel::getUser()->id;
+		if(Sentinel::inRole('administrator')){
+			$posts = Post::orderBy('created_at', 'DESC')->paginate(10);
+		} else {
+			$posts = Post::where('user_id', $user_id)->orderBy('created_at', 'DESC')->paginate(10);
+			
+   	}
 		
 		return view('Centaur::posts.index', ['posts' => $posts]);
 		//dd($posts);
@@ -43,6 +57,8 @@ class PostController extends Controller
     {
        $user_id = Sentinel::getUser()->id;
 	   //dd($user_id);
+	   
+	   
 	   
 	   $results = $this->validate($request,
 						[
@@ -94,6 +110,16 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 		//abort(404);
+		
+		/* zadaca 27.04
+		$user_id = Sentinel::getUser()->id;
+		if(Sentinel::inRole('administrator')){
+			$posts = Post::orderBy('created_at', 'DESC')->paginate(10);
+		} else {
+			$posts = Post::where('user_id', $user_id)->orderBy('created_at', 'DESC')->paginate(10);
+			
+   	}*/
+		
 		
 		return view('Centaur::posts.edit', ['post' => $post]);
     }

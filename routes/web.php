@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/post/{slug}','HomeController@show')->name('post.show');
+
 /* Radi se kroz controler  
 Route::get('/save-post', function () {
    $data = array(
